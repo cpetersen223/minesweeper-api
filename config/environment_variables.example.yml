@@ -1,0 +1,16 @@
+development:
+  DATABASE_USERNAME: user
+  DATABASE_PASSWORD: secure_password
+  DATABASE_HOST: localhost
+test:
+  DATABASE_USERNAME: user
+  DATABASE_PASSWORD: secure_password
+  DATABASE_HOST: localhost
+staging:
+  DATABASE_USERNAME: user
+  DATABASE_PASSWORD: secure_password
+  DATABASE_HOST: http://host:port
+production:
+  DATABASE_USERNAME: user
+  DATABASE_PASSWORD: secure_password
+  DATABASE_HOST: http://host:port

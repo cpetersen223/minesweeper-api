@@ -13,20 +13,20 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: minesweeper-api_development
+  database: <%= ENV['DATABASE_NAME'] || Rails.app_class.name.split('::')[0].titleize.tr(' ', '_').downcase %>_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: minesweeper-api_test
+  database: <%= ENV['DATABASE_NAME'] || Rails.app_class.name.split('::')[0].titleize.tr(' ', '_').downcase %>_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: minesweeper-api_production
-  username: minesweeper-api
-  password: <%= ENV['MINESWEEPER-API_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] || Rails.app_class.name.split('::')[0].titleize.tr(' ', '_').downcase %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
