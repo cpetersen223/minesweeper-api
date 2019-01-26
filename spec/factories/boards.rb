@@ -13,9 +13,9 @@
 
 FactoryBot.define do
   factory :board do
-    rows { 1 }
-    cols { 1 }
-    mines_percentage { 1 }
+    rows { 10 }
+    cols { 10 }
+    mines_percentage { 10 }
     game { nil }
   end
 end

@@ -12,8 +12,10 @@
 
 FactoryBot.define do
   factory :game do
-    player { "MyString" }
+    player { Faker::StarWars.character }
     over { false }
     won { false }
+
+    association :board, strategy: :build
   end
 end

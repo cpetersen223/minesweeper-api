@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: mines
+# Table name: cells
 #
 #  id         :bigint(8)        not null, primary key
 #  x          :integer
@@ -8,6 +8,7 @@
 #  board_id   :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  kind       :integer
 #
 
 class Cell < ApplicationRecord
