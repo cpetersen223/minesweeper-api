@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_233050) do
+ActiveRecord::Schema.define(version: 2019_01_26_010024) do
 
   create_table "boards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "rows"
@@ -22,21 +22,22 @@ ActiveRecord::Schema.define(version: 2019_01_25_233050) do
     t.index ["game_id"], name: "index_boards_on_game_id"
   end
 
+  create_table "cells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "x"
+    t.integer "y"
+    t.bigint "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "kind"
+    t.index ["board_id"], name: "index_cells_on_board_id"
+  end
+
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "player"
     t.boolean "over", default: false
     t.boolean "won", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "mines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "x"
-    t.integer "y"
-    t.bigint "board_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["board_id"], name: "index_mines_on_board_id"
   end
 
   create_table "plays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,6 +50,6 @@ ActiveRecord::Schema.define(version: 2019_01_25_233050) do
   end
 
   add_foreign_key "boards", "games"
-  add_foreign_key "mines", "boards"
+  add_foreign_key "cells", "boards"
   add_foreign_key "plays", "games"
 end

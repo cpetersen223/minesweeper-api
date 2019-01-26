@@ -10,8 +10,13 @@
 #  updated_at :datetime         not null
 #
 
-class Mine < ApplicationRecord
-  belongs_to :board
+require "rails_helper"
 
-  validates_presence_of :x, :y
+RSpec.describe Cell, type: :model do
+  # Association test
+  it { should belong_to(:board) }
+  # Validation test
+  it { should validate_presence_of(:x) }
+  it { should validate_presence_of(:y) }
+  it { should validate_presence_of(:kind) }
 end

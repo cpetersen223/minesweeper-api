@@ -15,7 +15,7 @@ require "rails_helper"
 
 RSpec.describe Board, type: :model do
   # Association test
-  it { should have_many(:mines).dependent(:destroy) }
+  it { should have_many(:cells).dependent(:destroy) }
   it { should belong_to(:game) }
 
   # Validation tests

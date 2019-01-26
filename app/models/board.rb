@@ -12,7 +12,7 @@
 #
 
 class Board < ApplicationRecord
-  has_many :mines, dependent: :destroy
+  has_many :cells, dependent: :destroy
   belongs_to :game
 
   validates_presence_of :rows, :cols, :mines_percentage
