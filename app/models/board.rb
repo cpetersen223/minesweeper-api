@@ -12,8 +12,22 @@
 #
 
 class Board < ApplicationRecord
+  DEFAULT_COLS = 10.freeze
+  DEFAULT_ROWS = 10.freeze
+  DEFAULT_MINES_PERCENTAGE = 10.freeze
+
   has_many :cells, dependent: :destroy
   belongs_to :game
 
   validates_presence_of :rows, :cols, :mines_percentage
+
+  after_initialize :set_defaults
+
+  private
+
+  def set_defaults
+    self.cols ||= DEFAULT_COLS
+    self.rows ||= DEFAULT_ROWS
+    self.mines_percentage ||= DEFAULT_MINES_PERCENTAGE
+  end
 end

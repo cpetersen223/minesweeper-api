@@ -17,5 +17,15 @@ class Game < ApplicationRecord
   validates_presence_of :board
   validates :over, :won, inclusion: { in: [false] }, on: :create
 
-  after_initialize ->(game) { game.over = false; game.won = false }
+  after_initialize :set_defaults
+
+  accepts_nested_attributes_for :board
+
+  private
+
+  def set_defaults
+    self.over = false
+    self.won  = false
+    build_board unless board
+  end
 end

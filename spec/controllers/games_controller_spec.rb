@@ -25,7 +25,7 @@ RSpec.describe "V1::Games API", type: :request do
       it "returns the specific game" do
         expect(json).not_to be_empty
         expect(json["id"]).to eq(game_id)
-        expect(json["board"]["id"]).to eq(game.board.id)
+        expect(json["board"]).to be_present
       end
 
       it "returns status code 200" do
@@ -41,22 +41,24 @@ RSpec.describe "V1::Games API", type: :request do
       end
 
       it "returns a not found message" do
-        expect(response.body).to match(/Couldn't find game with 'id'=#{game_id}/)
+        expect(response.body).to match(/Couldn't find Game with 'id'=#{game_id}/)
       end
     end
   end
 
   describe "POST /api/v1/games" do
     let(:player) { "John Doe" }
-    let(:board) { initialize(:board) }
+    let(:board) { { rows: 5, cols: 5, mines_percentage: 5 } }
     let(:valid_attributes) { { player: player, board: board } }
 
     context "when the request is valid" do
       before { post "/api/v1/games", params: valid_attributes }
 
-      it "creates an game" do
+      it "creates a game" do
         expect(json["player"]).to eq(player)
-        expect(json["board"]["id"]).to eq(board.id)
+        expect(json["board"]["rows"]).to eq(board[:rows])
+        expect(json["board"]["cols"]).to eq(board[:cols])
+        expect(json["board"]["mines_percentage"]).to eq(board[:mines_percentage])
       end
 
       it "returns status code 201" do
@@ -64,16 +66,18 @@ RSpec.describe "V1::Games API", type: :request do
       end
     end
 
-    context "when the request is invalid" do
+    context "when the request is valid and not passing values" do
       before { post "/api/v1/games", params: {} }
 
-      it "returns status code 422" do
-        expect(response).to have_http_status(422)
+      it "creates a game" do
+        expect(json["player"]).to be_nil
+        expect(json["board"]["rows"]).to eq(10)
+        expect(json["board"]["cols"]).to eq(10)
+        expect(json["board"]["mines_percentage"]).to eq(10)
       end
 
-      it "returns a validation failure message" do
-        expect(response.body)
-            .to match(/Validation failed: Board can't be blank/)
+      it "returns status code 201" do
+        expect(response).to have_http_status(201)
       end
     end
   end

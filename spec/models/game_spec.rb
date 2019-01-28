@@ -14,11 +14,15 @@ require "rails_helper"
 
 RSpec.describe Game, type: :model do
   # Association test
-  it { should have_one(:board).dependent(:destroy) }
-  it { should have_many(:plays).dependent(:destroy) }
+  describe "associations" do
+    it { should have_one(:board).dependent(:destroy) }
+    it { should have_many(:plays).dependent(:destroy) }
+  end
 
   # Validation tests
-  it { should validate_presence_of(:board) }
-  it { should validate_inclusion_of(:over).in_array([false]) }
-  it { should validate_inclusion_of(:won).in_array([false]) }
+  describe "validations" do
+    it { should validate_presence_of(:board) }
+    it { should validate_inclusion_of(:over).in_array([false]) }
+    it { should validate_inclusion_of(:won).in_array([false]) }
+  end
 end
