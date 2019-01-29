@@ -21,6 +21,15 @@ class Game < ApplicationRecord
 
   accepts_nested_attributes_for :board
 
+  def play!(move)
+    if plays.present?
+      @play_checker = PlayChecker.new game: self, move: move
+      # Todo @play_checker logic
+    else
+      # Todo
+    end
+  end
+
   private
 
   def set_defaults
