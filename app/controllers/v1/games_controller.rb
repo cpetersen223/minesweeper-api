@@ -31,10 +31,7 @@ module V1
     def game_params
       if action_create?
         parameters = params.permit :player, board: %i[cols rows mines_percentage]
-        if parameters.key? :board
-          parameters[:board_attributes] = parameters.delete :board
-        end
-        p parameters
+        parameters[:board_attributes] = parameters.delete :board if parameters.key? :board
         parameters.permit!
       else
         params.permit(:player)
