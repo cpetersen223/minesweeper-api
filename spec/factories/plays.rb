@@ -12,8 +12,8 @@
 
 FactoryBot.define do
   factory :play do
-    x_coordinate { nil }
-    y_coordinate { nil }
+    x { nil }
+    y { nil }
     game { nil }
   end
 end

@@ -17,24 +17,29 @@ class Game < ApplicationRecord
   validates_presence_of :board
   validates :over, :won, inclusion: { in: [false] }, on: :create
 
-  after_initialize :set_defaults
+  after_initialize :set_defaults, on: :create
 
   accepts_nested_attributes_for :board
 
   def play!(move)
+    @verifier = PlayVerifier.new game: self, move: move
     if plays.present?
-      @play_checker = PlayChecker.new game: self, move: move
-      # Todo @play_checker logic
+      @verifier.move if @verifier.cell? && @verifier.playable?
+      update won: @verifier.won?, over: @verifier.over?
     else
-      # Todo
+      @cell_factory = CellFactory.new(board: board, move: move).make
+      @verifier.move
     end
+    @verifier.play
   end
 
   private
 
   def set_defaults
-    self.over = false
-    self.won  = false
-    build_board unless board
+    if new_record?
+      self.over = false
+      self.won  = false
+      build_board unless board
+    end
   end
 end

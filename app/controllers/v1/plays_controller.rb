@@ -13,16 +13,16 @@ module V1
     end
 
     def show
-      json_response @play
+      json_response @move
     end
 
     def update
-      @play.update!(play_params)
+      @move.update!(play_params)
       head :no_content
     end
 
     def destroy
-      @play.destroy!
+      @move.destroy!
       head :no_content
     end
 
@@ -37,7 +37,7 @@ module V1
     end
 
     def set_play
-      @play = Play.includes(:game).find params[:id]
+      @move = Play.includes(:game).find params[:id]
     end
   end
 end

@@ -1,3 +1,4 @@
 class PlaySerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :x, :y
+  belongs_to :game
 end

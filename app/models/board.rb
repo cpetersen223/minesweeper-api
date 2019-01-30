@@ -26,8 +26,10 @@ class Board < ApplicationRecord
   private
 
   def set_defaults
-    self.cols ||= DEFAULT_COLS
-    self.rows ||= DEFAULT_ROWS
-    self.mines_percentage ||= DEFAULT_MINES_PERCENTAGE
+    if new_record?
+      self.cols ||= DEFAULT_COLS
+      self.rows ||= DEFAULT_ROWS
+      self.mines_percentage ||= DEFAULT_MINES_PERCENTAGE
+    end
   end
 end
