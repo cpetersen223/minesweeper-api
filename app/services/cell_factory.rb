@@ -1,4 +1,6 @@
 class CellFactory
+  include Neighbor
+
   def initialize(board:, move:)
     @board, @move = board, move
   end
@@ -38,7 +40,7 @@ class CellFactory
 
   def calculate_neighbors(cell)
     return 0 if cell[:mine]
-    mines.select { |mine| is_between(cell[:x], mine[:x]) && is_between(cell[:y], mine[:y]) }.length
+    mines.select { |mine| neighbor? cell, mine }.length
   end
 
   private
@@ -49,11 +51,5 @@ class CellFactory
 
   def cells_number
     @cells_number ||= @board.rows * @board.cols
-  end
-
-  def is_between(cell_position, mine_position)
-    cell_position + 1 == mine_position ||
-        cell_position - 1 == mine_position ||
-        cell_position == mine_position
   end
 end
