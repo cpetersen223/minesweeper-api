@@ -15,8 +15,12 @@ class PlayVerifier
     cell.present?
   end
 
+  def cell_without_neighbor_mine?
+    cell.mines_neighbors == 0
+  end
+
   def won?
-    @game.board.cells.where(played: false, kind: :empty).blank?
+    @game.board.cells.where(played: false, kind: :void).blank?
   end
 
   def over?
@@ -34,6 +38,6 @@ class PlayVerifier
   end
 
   def cell_played!
-    cell.toggle :played and cell.save
+    cell.toggle :played && cell.save
   end
 end

@@ -9,11 +9,11 @@ module V1
 
     def create
       play = @game.play!(play_params)
-      json_response play, :created
+      json_response play, :created, include: %w[game.board.cells]
     end
 
     def show
-      json_response @move
+      json_response @move, include: %w[game.board.cells]
     end
 
     def update
