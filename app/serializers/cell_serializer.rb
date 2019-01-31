@@ -14,6 +14,6 @@
 #
 
 class CellSerializer < ActiveModel::Serializer
-  attributes :x, :y, :kind, :played
+  attributes :x, :y, :kind, :played, :mines_neighbors
   belongs_to :board
 end

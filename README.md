@@ -49,6 +49,48 @@ POST /api/v1/games
 Plays n<---1 Game 1--->1 Board 1--->n Cells
 * Use of 3 services for better architecture on the business logic
 * Every play made (POST /api/v1/games/:id/plays) returns the play made, the game with the board and their cells
-* Todo: API docs
+``` json
+// POST /api/v1/games/:id/plays
+
+{
+    "x": 0, // int
+    "y": 0  // int
+}
+
+// response:
+
+{
+    "x": 0,
+    "y": 0,
+    "game": {
+        "id": 1,
+        "player": "",
+        "won": false,
+        "over" true,
+        "board": {
+            "rows": 10,
+            "cols": 10,
+            "mines_percentage": 10,
+            "cells": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "kind": "void",
+                    "played": true,
+                    "mines_neighbors": 0
+                },
+                {
+                    "x": 0,
+                    "y": 1,
+                    "kind": "void",
+                    "played": true,
+                    "mines_neighbors": 0
+                },
+                ...
+            ]
+        }
+    }
+}
+```
+* Todo: rswag API DOCS
 * Todo: Services tests
-* Todo: Rack Cors

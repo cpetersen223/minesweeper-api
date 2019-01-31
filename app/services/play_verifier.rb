@@ -15,8 +15,8 @@ class PlayVerifier
     cell.present?
   end
 
-  def cell_without_neighbor_mine?
-    cell.mines_neighbors == 0
+  def playable_with_neighbor_mine?
+    cell&.not_mines_neighbors? && playable?
   end
 
   def won?
@@ -38,6 +38,6 @@ class PlayVerifier
   end
 
   def cell_played!
-    cell.toggle :played && cell.save
+    cell.update! played: true
   end
 end

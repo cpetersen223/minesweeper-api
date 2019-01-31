@@ -2,15 +2,19 @@ development:
   DATABASE_USERNAME: user
   DATABASE_PASSWORD: secure_password
   DATABASE_HOST: localhost
+  CORS_ORIGINS: http://host:port # Multiple comma separated hosts
 test:
   DATABASE_USERNAME: user
   DATABASE_PASSWORD: secure_password
   DATABASE_HOST: localhost
+  CORS_ORIGINS: http://host:port # Multiple comma separated hosts
 staging:
   DATABASE_USERNAME: user
   DATABASE_PASSWORD: secure_password
   DATABASE_HOST: http://host:port
+  CORS_ORIGINS: http://host:port # Multiple comma separated hosts
 production:
   DATABASE_USERNAME: user
   DATABASE_PASSWORD: secure_password
   DATABASE_HOST: http://host:port
+  CORS_ORIGINS: http://host:port # Multiple comma separated hosts
