@@ -22,14 +22,17 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :board
 
   def play!(move)
-    @verifier = PlayVerifier.new game: self, move: move
+    @move = move
+    validate!
+    set_verifier
     if plays.present?
       @verifier.move if @verifier.cell? && @verifier.playable?
       update won: @verifier.won?, over: @verifier.over?
     else
-      @cell_factory = CellFactory.new(board: board, move: move).make
+      @cell_factory = CellFactory.new(board: board, move: @move).make
       @verifier.move
     end
+    EmptyCellFinder.new(board, @move).find! if @verifier.cell_without_neighbor_mine?
     @verifier.play
   end
 
@@ -41,5 +44,14 @@ class Game < ApplicationRecord
       self.won  = false
       build_board unless board
     end
+  end
+
+  def validate!
+    play = Play.new(x: @move[:x], y: @move[:y], game: self)
+    raise ActiveRecord::RecordInvalid.new play unless play.valid?
+  end
+
+  def set_verifier
+    @verifier = PlayVerifier.new game: self, move: @move
   end
 end

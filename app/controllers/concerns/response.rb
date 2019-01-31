@@ -4,11 +4,13 @@ module Response
                     status = :ok,
                     serializer: nil,
                     each_serializer: nil,
-                    method: :render)
+                    method: :render,
+                    include: nil)
 
     send method,
          json: object,
          status: status,
+         include: include,
          serializer: serializer,
          each_serializer: each_serializer
   end

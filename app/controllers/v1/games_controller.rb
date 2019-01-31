@@ -13,7 +13,7 @@ module V1
     end
 
     def show
-      json_response @game
+      json_response @game, include: %w[plays board.cells]
     end
 
     def update
@@ -44,7 +44,7 @@ module V1
 
     def set_game
       # Include Board to draw the board and plays to draw it on the current "state"
-      @game = Game.includes(:board, :plays).find params[:id]
+      @game = Game.includes(:plays, board: :cells).find params[:id]
     end
   end
 end
